@@ -1,0 +1,32 @@
+<h1>Todo API</h1>
+
+<p>This is a RESTful JSON API for Todo's. It exposes the following endpoints:</p>
+
+<ul>
+  <li>
+    <%= link_to "#get-todos" do %>
+      <code>GET /todos</code>
+    <% end %>
+  </li>
+</ul>
+
+<h2 id="#get-todos">GET /todos</h2>
+
+<pre>
+{
+  meta: {
+    count: 2,
+    page: 0
+  },
+  todos: [
+    {
+      title: "This needs doing",
+      complete: false
+    },
+    {
+      title: "Buy bread",
+      completed: true
+    }
+  ]
+}
+</pre>
