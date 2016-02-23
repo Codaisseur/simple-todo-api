@@ -5,7 +5,7 @@ class TodosController < ApplicationController
         count: Todo.count,
         page: 0
       },
-      todos: Todo.order(id: :asc)
+      todos: Todo.order(:completed, :id)
     }
   end
 
