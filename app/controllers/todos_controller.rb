@@ -21,7 +21,7 @@ class TodosController < ApplicationController
   end
 
   def update
-    todo = todo.find(params[:id])
+    todo = Todo.find(params[:id])
 
     if todo.update(todo_params)
       render json: { todo: todo }
@@ -34,7 +34,7 @@ class TodosController < ApplicationController
   end
 
   def destroy
-    todo = todo.find(params[:id])
+    todo = Todo.find(params[:id])
 
     if todo.destroy
       render json: { todo: nil }
