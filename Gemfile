@@ -19,11 +19,19 @@ gem 'puma'
 
 group :development, :test do
   gem 'byebug'
+  gem 'rspec-rails'
+  gem 'shoulda-matchers'
 end
 
 group :development do
   gem 'web-console', '~> 2.0'
   gem 'spring'
+  gem 'guard-rspec'
+  gem 'spring-commands-rspec'
+  if `uname` =~ /Darwin/
+    gem 'rb-fsevent'
+    gem 'terminal-notifier-guard'
+  end
 end
 
 group :production do
