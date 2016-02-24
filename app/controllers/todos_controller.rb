@@ -1,16 +1,21 @@
 class TodosController < ApplicationController
+  before_action :set_project
+
   def index
     render json: {
       meta: {
-        count: Todo.count,
+        count: @project.todos.count,
         page: 0
       },
-      todos: Todo.order(:completed, :id)
+      todos: @project.todos.order(:completed, :id)
     }
   end
 
   def create
-    if todo = Todo.create(todo_params)
+    todo = Todo.new(todo_params)
+    todo.project = @project
+
+    if todo.save
       render json: { todo: todo }
     else
       render json: {
@@ -21,7 +26,7 @@ class TodosController < ApplicationController
   end
 
   def update
-    todo = Todo.find(params[:id])
+    todo = @project.todos.find(params[:id])
 
     if todo.update(todo_params)
       render json: { todo: todo }
@@ -34,7 +39,7 @@ class TodosController < ApplicationController
   end
 
   def destroy
-    todo = Todo.find(params[:id])
+    todo = @project.todos.find(params[:id])
 
     if todo.destroy
       render json: { todo: nil }
@@ -46,6 +51,10 @@ class TodosController < ApplicationController
   end
 
   private
+
+  def set_project
+    @project = Project.find(params[:project_id])
+  end
 
   def todo_params
     params.require(:todo).permit(:title, :completed)

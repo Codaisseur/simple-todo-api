@@ -11,16 +11,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160222162358) do
+ActiveRecord::Schema.define(version: 20160224090911) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "projects", force: :cascade do |t|
+    t.string   "title"
+    t.text     "description"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
 
   create_table "todos", force: :cascade do |t|
     t.string   "title"
     t.boolean  "completed",  default: false
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
+    t.integer  "project_id"
   end
 
+  add_index "todos", ["project_id"], name: "index_todos_on_project_id", using: :btree
+
+  add_foreign_key "todos", "projects"
 end
